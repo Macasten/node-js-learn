@@ -3,30 +3,14 @@ const yargs = require('yargs');
 
 const notes = require('./notes');
 
+// Goal: Refactor all function
+
+// 1. If function is a MSInputMethodContext, use ES6 method definition syntax
+// 2. Otherwise, use most concise arrow function possible
+// 3. Test your work!
+
 // Customize yargs version
 yargs.version('1.1.0')
-
-// Challenge1: Setup command option anf function
-
-// 1. Setup the remove command to take a required "--title" option
-// 2. Create and export a removeNote function from notes.js
-// 3. Call removeNote in remove command handler
-// 4. Have removeNote log the title of the note to be removed
-// 5. test your work using: note applicationCache.js remove --title="some title"
-
-// Challenge2: Wire up removeNote
-
-// 1. Load existing notes
-// 2. Use array filter method to remove the matching note (if any)
-// 3. Save the newly created array
-// 4. Test your work with a title that exists and a title that doesn't exist
-
-
-// Challenge3: Use chalk to provide useful logs for remove
-
-// 1. If a note is removed, print "Note removed!" with a green background
-// 2. If no note is removed, print "No note found!" with red background
-
 
 // Create add command
 yargs.command({
@@ -44,9 +28,7 @@ yargs.command({
       type: 'string'
     },
   },
-  handler: ( argv ) => {
-    notes.addNote( argv.title, argv.body);
-  }
+  handler( argv ){ notes.addNote( argv.title, argv.body) }
 })
 
 // Create remove command
@@ -60,9 +42,7 @@ yargs.command({
       type: 'string'
     }
   },
-  handler: ( argv ) => {
-    notes.removeNote( argv.title )
-  }
+  handler( argv ){ notes.removeNote( argv.title ) }
 
 })
 
@@ -70,7 +50,7 @@ yargs.command({
 yargs.command({
   command: 'list',
   describe: 'List all notes',
-  handler: () =>{ console.log('Listing out all notes'); }
+  handler(){ console.log('Listing out all notes') }
 
 })
 
@@ -78,7 +58,7 @@ yargs.command({
 yargs.command({
   command: 'read',
   describe: 'Read a notes',
-  handler: () =>{ console.log('Reading a notes'); }
+  handler(){ console.log('Reading a notes') }
 
 })
 
