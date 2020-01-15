@@ -3,10 +3,12 @@ const yargs = require('yargs');
 
 const notes = require('./notes');
 
-// Goal: Refactor all function
+// Goal: Wire up list command
 
-// 1. If function is a MSInputMethodContext, use ES6 method definition syntax
-// 2. Otherwise, use most concise arrow function possible
+// 1. Create and export listNotes from notes.js
+//  - "Your notes" using chalk
+//  - Print note title for each note
+// 2. Call listNotes from command handler
 // 3. Test your work!
 
 // Customize yargs version
@@ -50,7 +52,7 @@ yargs.command({
 yargs.command({
   command: 'list',
   describe: 'List all notes',
-  handler(){ console.log('Listing out all notes') }
+  handler(){ notes.listNote() }
 
 })
 

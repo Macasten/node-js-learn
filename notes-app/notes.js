@@ -31,6 +31,20 @@ const removeNote = ( title ) => {
 
 }
 
+const listNote = () => {
+  const notes = loadNotes()
+  if( notes.length > 0 )
+  {
+    console.log( chalk.green("Your notes: "))
+    notes.forEach( element => {
+      console.log("* Title: " + element.title )
+    })
+  } else {
+    console.log( chalk.red("You have no notes!") )
+  }
+
+}
+
 
 const loadNotes = () => {
   try{
@@ -50,5 +64,6 @@ const saveNotes = ( notes ) => {
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
-  removeNote: removeNote
+  removeNote: removeNote,
+  listNote: listNote
 }
