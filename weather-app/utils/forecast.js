@@ -9,9 +9,9 @@ const geocode = (longitude, latitude, callback ) => {
   const url = `https://api.darksky.net/forecast/62d2d6aab6e627f7bdd219caae88a070/${ latitude },${ longitude  }?units=si&lang=pt`
   request( { url:url, json:true}, (error, response ) =>{
   if( error ){
-    callback('Unable to connect to weather service!')
+    callback('Unable to connect to weather service!', undefined)
   } else if(response.body.error) {
-    callback( 'Unable to find location!' )
+    callback( 'Unable to find location!', undefined)
   } else {
     var currently = response.body.currently
     var daily = response.body.daily
