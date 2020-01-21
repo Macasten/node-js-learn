@@ -1,11 +1,5 @@
-const request = require("request")
-
 const geocode = require('./utils/geocode')
-
-//const url = 'https://api.darksky.net/forecast/62d2d6aab6e627f7bdd219caae88a070/37.8267,-122.4233'
-//const url = 'https://api.darksky.net/forecast/62d2d6aab6e627f7bdd219caae88a070/37.8267,-122.4233?key=value1&key2=value2'
-const url = 'https://api.darksky.net/forecast/62d2d6aab6e627f7bdd219caae88a070/37.8267,-122.4233?units=si&lang=pt'
-
+const forecast = require('./utils/forecast')
 
 // request( { url: url, json: true } , ( error, response ) => {
 //   if( error ){
@@ -21,7 +15,28 @@ const url = 'https://api.darksky.net/forecast/62d2d6aab6e627f7bdd219caae88a070/3
 // } )
 
 geocode('Porto Portugal', ( error , data ) => {
-  console.log( error )
+  if( error ){
+    console.log(error)
+  } else {
+    forecast( data.longitude, data.latitude, ( error, data ) => {
+      console.log( data )
+      console.log( error )
+    } )
+  }
   console.log( data )
+})
 
+//
+// Goal: Create a reusable function for getting the forecast
+//
+// 1. Setup the "forecast" function in utils/forecast.js
+// 2. Require the function in app.js and call it as shown below
+// 3. The forecast function should have three potential calls to callback:
+//    - Low level error, pass string for error
+//    - Coordinate error, pass string for error
+//    - Success, pass forecast string for data (same format as from before)
+
+forecast(-75.7088, 44.1545, (error, data) => {
+  console.log('Error', error)
+  console.log('Data', data)
 })
