@@ -1,12 +1,11 @@
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
-// Goal: Accept location via command line as argument
+// Goal: Use both destructuring and property shorthand in weather app
 
-// 1. Access the command line argument without use yargs
-// 2. Use the string value as the input for geocode
-// 3. Only geocode if a location was provided
-// 4. Test your work with a couple locations
+// 1. Use destructuring in app-js, forecast.js and geocode.js
+// 2. Use preperty shorthand in forecast.js and geocode.js
+// 3. Tess your work ensure app still works
 
 const location = process.argv[2]
 if( !location ){
@@ -14,16 +13,16 @@ if( !location ){
 }
 
 
-geocode(location, ( error , data ) => {
+geocode(location, ( error , {longitude, latitude, location} ) => {
   if( error ){
     return console.log(error)
   }
 
-  forecast( data.longitude, data.latitude, ( error, forecastData ) => {
+  forecast( longitude, latitude, ( error, forecastData ) => {
     if( error ){
       return console.log(error)
     }
-    console.log(data.location)
+    console.log(location)
     console.log(forecastData)
   })
   
