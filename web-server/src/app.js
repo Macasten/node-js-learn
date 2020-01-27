@@ -2,12 +2,9 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
 
-// Goal: Create a partial for the footer
-
-// 1. Setup the template for the footer partial "Created by Some Name"
-// 2. Render the partial at the bottom of all three pages
-// 3. Test your work by visiting all three pages
 
 const app = express()
 
@@ -43,22 +40,36 @@ app.get( '/help', ( req, res)=>{
   })
 })
 
-// Goal: Update weather endpoint to accept address
+// Goal: Wire up/weather
 
-// 1. No address? Send back an error message
-// 2. Address? Send back the static JSON
-//     - Add address property onto JSON witch returns the provided address
-// 3. Test /weather and /Weather?adress=philadelphia
+// 1. Require geocode/forecast into app.js
+// 2. Use the address to geocode
+// 3. Use the coordinates to get forecast
+// 4. Send back hthe real forecast and location
 
 app.get('/weather', (req, res ) => {
   if( !req.query.address ){
     return res.send({ error: 'Location is needed!' })
   }
 
-  res.send( {
-    forecast : 'pois',
-    location : req.query.address
+  geocode(req.query.address, ( error , {longitude, latitude, location} ) => {
+    if( error ){
+      return res.send({ error: error })
+    }
+  
+    forecast( longitude, latitude, ( error, forecastData ) => {
+      if( error ){
+        res.send({ error: error })
+      }
+      res.send( {
+        forecast : forecastData,
+        location ,
+        address : req.query.address
+      })
+    })
+    
   })
+
 })
 
 app.get('/products', (req, res ) => {
