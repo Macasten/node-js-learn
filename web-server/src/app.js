@@ -49,6 +49,28 @@ app.get('/weather', (req, res ) => {
     location: "Porto"})
 })
 
+app.get('/help/*', (req, res) => {
+  res.render('404',{
+    title: "404",
+    errorMessage : 'Help article ',
+    name: 'Macas' })
+})
+app.get('*', (req, res ) => {
+  res.render('404', {
+    title: "404",
+    errorMessage: 'My 404 page',
+    name: 'Macas'} )
+})
+
 app.listen(3000, () =>{
   console.log('Server is up on port 3000.')
 } )
+
+// Goal: Create and render a 404 page with Handlebars
+
+// 1. Setup the template to render the header and footer
+// 2. Setup the template to render an error message in a paragraph
+// 3. Render the template for coth 404 routes
+//   - Page not found.
+//   - Page article not found.
+// 4. Test your work. Visit /what and help/units
