@@ -43,11 +43,33 @@ app.get( '/help', ( req, res)=>{
   })
 })
 
+// Goal: Update weather endpoint to accept address
+
+// 1. No address? Send back an error message
+// 2. Address? Send back the static JSON
+//     - Add address property onto JSON witch returns the provided address
+// 3. Test /weather and /Weather?adress=philadelphia
+
 app.get('/weather', (req, res ) => {
-  res.send({
-    forecast : "10º",
-    location: "Porto"})
+  if( !req.query.address ){
+    return res.send({ error: 'Location is needed!' })
+  }
+
+  res.send( {
+    forecast : 'pois',
+    location : req.query.address
+  })
 })
+
+app.get('/products', (req, res ) => {
+  if( !req.query.search) {
+    return res.send({ error: 'you must provide a search term'})
+  }
+  
+  res.send({ products: [] })
+  
+})
+
 
 app.get('/help/*', (req, res) => {
   res.render('404',{
@@ -65,12 +87,3 @@ app.get('*', (req, res ) => {
 app.listen(3000, () =>{
   console.log('Server is up on port 3000.')
 } )
-
-// Goal: Create and render a 404 page with Handlebars
-
-// 1. Setup the template to render the header and footer
-// 2. Setup the template to render an error message in a paragraph
-// 3. Render the template for coth 404 routes
-//   - Page not found.
-//   - Page article not found.
-// 4. Test your work. Visit /what and help/units
