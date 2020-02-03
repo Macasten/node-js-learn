@@ -7,6 +7,7 @@ const forecast = require('./utils/forecast')
 
 
 const app = express()
+const port = process.env.PORT || 3000
 
 // Define path for Express config
 // Setup handlebars engine and views
@@ -39,13 +40,6 @@ app.get( '/help', ( req, res)=>{
     name: 'Macas'
   })
 })
-
-// Goal: Wire up/weather
-
-// 1. Require geocode/forecast into app.js
-// 2. Use the address to geocode
-// 3. Use the coordinates to get forecast
-// 4. Send back hthe real forecast and location
 
 app.get('/weather', (req, res ) => {
   if( !req.query.address ){
@@ -95,6 +89,6 @@ app.get('*', (req, res ) => {
     name: 'Macas'} )
 })
 
-app.listen(3000, () =>{
-  console.log('Server is up on port 3000.')
+app.listen(port, () =>{
+  console.log(`Server is up on port ${port}.`)
 } )
