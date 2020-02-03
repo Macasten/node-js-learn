@@ -28,11 +28,3 @@ weatherForm.addEventListener( 'submit' , (e) => {
     })
   } )
 })
-
-// Goal: Render content to paragraphs
-
-// 1. Select the second message p from Javascript
-// 2. Just before fetch, render loanding message and empty p
-// 3. If error, render error
-// 4. If no error, render location and forecast
-// 5. Test your work! Search for errors and for valid locations
