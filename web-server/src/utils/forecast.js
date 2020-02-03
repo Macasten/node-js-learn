@@ -15,7 +15,9 @@ const geocode = (longitude, latitude, callback ) => {
   } else {
     var{ currently, daily } = body
     var data = `${ daily.data[0].summary} Is is currently \
-${currently.temperature} degrees out. There is a \
+${currently.temperature} degrees out.
+The high today is ${ daily.data[0].temperatureHigh} \
+with a low of ${daily.data[0].temperatureLow}.\ There is a \
 ${currently.precipProbability}% of rain.`
 
     callback(undefined, data )
